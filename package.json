@@ -1,1 +1,28 @@
-{}
+{
+  "scripts": {
+    "start": "nodemon server"
+  },
+  "name": "jobify",
+  "description": "#### Track Your Job Search",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexMNet/jobify.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexMNet/jobify/issues"
+  },
+  "homepage": "https://github.com/AlexMNet/jobify#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.3"
+  }
+}
