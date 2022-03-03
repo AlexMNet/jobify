@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
+import bcrypt from 'bcryptjs';
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -35,6 +36,14 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     default: 'my city',
   },
+});
+
+//Triggered when user is created or updated (doesn't work with findOneAndUpdate)
+UserSchema.pre('save', async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+
+  next();
 });
 
 export default mongoose.model('User', UserSchema);
