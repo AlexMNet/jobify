@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "start": "nodemon server"
+    "server": "nodemon server --ignore client",
+    "client": "npm start --prefix client",
+    "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client \""
   },
   "name": "jobify",
   "description": "#### Track Your Job Search",
@@ -8,6 +10,7 @@
   "main": "index.js",
   "type": "module",
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "nodemon": "^2.0.15"
   },
   "repository": {
