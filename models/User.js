@@ -42,6 +42,12 @@ const UserSchema = new mongoose.Schema({
 
 //Triggered when user is created or updated (doesn't work with findOneAndUpdate)
 UserSchema.pre('save', async function (next) {
+  // console.log(this.modifiedPaths());
+  // console.log(this.isModified('name'));
+
+  if (!this.isModified('password')) return;
+
+  //Only runs if there is no password set yet or password is being changed
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 
