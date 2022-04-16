@@ -16,6 +16,7 @@ import {
   CREATE_JOB_ERROR,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
+  SET_EDIT_JOB,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -103,7 +104,7 @@ const reducer = (state, action) => {
         [action.payload.name]: action.payload.value,
       };
     case CLEAR_VALUES:
-      const initialState = {
+      const startingState = {
         idEditing: false,
         editJobId: '',
         position: '',
@@ -114,7 +115,7 @@ const reducer = (state, action) => {
       };
       return {
         ...state,
-        ...initialState,
+        ...startingState,
       };
     case CREATE_JOB_BEGIN:
       return {
@@ -150,6 +151,19 @@ const reducer = (state, action) => {
         jobs: action.payload.jobs,
         totalJobs: action.payload.totalJobs,
         numOfPages: action.payload.numOfPages,
+      };
+    case SET_EDIT_JOB:
+      const job = state.jobs.find((job) => job._id === action.payload.id);
+      const { _id, position, company, jobLocation, jobType, status } = job;
+      return {
+        ...state,
+        isEditing: true,
+        editJobId: _id,
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
       };
     default:
       throw new Error(`No such action: ${action.type}`);
